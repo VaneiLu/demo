@@ -30,7 +30,7 @@ public class MyClassScan extends ClassPathBeanDefinitionScanner {
             AbstractBeanDefinition beanDefinition = (AbstractBeanDefinition) definitionHolder.getBeanDefinition();
             // 获取扫描出的接口的beanClassName
             String beanClassName = beanDefinition.getBeanClassName();
-            // 设置BeanClass为DemoFactoryBean
+            // 设置BeanClass为MyFactoryBean
             beanDefinition.setBeanClass(MyFactoryBean.class);
             // 添加构造方法的参数,MyFactoryBean的构造方法需要Class对象,这里设置的是string的参数,spring会使用Class.forName加载
             // 成MyFactoryBean中构造方法需要的类参数
