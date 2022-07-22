@@ -8,5 +8,5 @@ import com.example.demo.mybasemapper.MyBaseMapper;
  * 2022/7/22-14:43
  **/
 @MyMapper
-public interface AMapper extends MyBaseMapper<java.lang.String> {
+public interface AMapper extends MyBaseMapper<String> {
 }

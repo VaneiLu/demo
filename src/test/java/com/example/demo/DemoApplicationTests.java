@@ -19,9 +19,9 @@ class DemoApplicationTests {
 	@Test
 	void test() {
 
-		aMapper.hello();
+		aMapper.hello("abc");
 
-		bMapper.world();
+		bMapper.world(123);
 	}
 
 }
