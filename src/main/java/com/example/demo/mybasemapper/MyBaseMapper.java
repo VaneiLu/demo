@@ -9,11 +9,11 @@ public interface MyBaseMapper<T> {
      * 测试方法
      * @return String
      */
-    String hello(T type);
+    T hello(T type);
 
     /**
      * 测试方法2
-     * @return String
+     * @return Integer
      */
-    String world(T type);
+    T world(T type);
 }

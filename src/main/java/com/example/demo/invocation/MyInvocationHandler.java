@@ -25,8 +25,12 @@ public class MyInvocationHandler implements InvocationHandler {
             return method.invoke(this, args);
         }
 
-        //实现了获取方法参数中的泛型
-        System.out.println(AopUtils.getTargetClass("方法参数类型  " + args[0]));
+        //获取方法参数中的泛型
+        System.out.println("方法参数类型  " + AopUtils.getTargetClass(args[0]));
+
+        //TODO 需要能够获取到返回值泛型类型
+        System.out.println(method.getReturnType());
+        System.out.println("返回值类型   " + AopUtils.getTargetClass(method.getReturnType()));
 
         //TODO 怎样获取代理类中的泛型
         Type[] types = method.getGenericParameterTypes();
@@ -37,15 +41,8 @@ public class MyInvocationHandler implements InvocationHandler {
             }
         }
         String methodName = method.getName();
-        if (StringUtils.pathEquals(methodName, "hello")) {
-            System.out.println("hello hello");
-        }
-        if (StringUtils.pathEquals(methodName, "world")) {
-            System.out.println("world world");
-        }
 
-
-        //TODO 获取不到继承MyBaseMapper<T>包装的泛型类型
+        //TODO 怎样MyBaseMapper<T>包装的泛型类型
         System.out.println("方法声明类   " + method.getDeclaringClass());
 
         return null;

@@ -21,7 +21,7 @@ class DemoApplicationTests {
 
 		aMapper.hello("abc");
 
-		bMapper.world(123);
+		bMapper.hello(123);
 	}
 
 }
