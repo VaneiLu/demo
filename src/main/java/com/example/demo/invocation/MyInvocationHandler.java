@@ -40,10 +40,8 @@ public class MyInvocationHandler implements InvocationHandler {
                 System.out.println(rawType);
             }
         }
-        String methodName = method.getName();
 
         //TODO 怎样MyBaseMapper<T>包装的泛型类型
-        System.out.println("方法声明类   " + method.getDeclaringClass());
 
         return null;
     }
