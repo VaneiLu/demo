@@ -1,5 +1,6 @@
 package com.example.demo.invocation;
 
+import com.example.demo.mybasemapper.MyBaseMapper;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.util.StringUtils;
 
@@ -41,8 +42,13 @@ public class MyInvocationHandler implements InvocationHandler {
             }
         }
 
-        //TODO 怎样MyBaseMapper<T>包装的泛型类型
-
+        //获取MyBaseMapper<T>包装的泛型类型
+        Class<? extends MyBaseMapper> interfaceType = (Class<? extends MyBaseMapper>)proxy.getClass().getGenericInterfaces()[0];
+        Type test = interfaceType.getGenericInterfaces()[0];
+        if (test instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) test;
+            System.out.println("MyBaseMapper的参数为：" + parameterizedType.getActualTypeArguments()[0]);
+        }
         return null;
     }
 }
