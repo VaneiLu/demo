@@ -24,9 +24,11 @@ public class MyInvocationHandler implements InvocationHandler {
         if (declaringClass == Object.class) {
             return method.invoke(this, args);
         }
+
+        //实现了获取方法参数中的泛型
+        System.out.println(AopUtils.getTargetClass("方法参数类型  " + args[0]));
+
         //TODO 怎样获取代理类中的泛型
-        //实现了获取被代理类对象中的泛型
-        System.out.println(AopUtils.getTargetClass(args[0]));
         Type[] types = method.getGenericParameterTypes();
         for (Type type : types) {
             if (type instanceof ParameterizedType) {
@@ -42,9 +44,10 @@ public class MyInvocationHandler implements InvocationHandler {
             System.out.println("world world");
         }
 
-        //获取方法参数type
-        //TODO 获取不到继承MyBaseMapper<T>的AMapper、BMapper包装的泛型类型
-        System.out.println(method.getDeclaringClass());
+
+        //TODO 获取不到继承MyBaseMapper<T>包装的泛型类型
+        System.out.println("方法声明类   " + method.getDeclaringClass());
+
         return null;
     }
 }
