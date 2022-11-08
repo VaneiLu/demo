@@ -9,6 +9,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -23,9 +24,12 @@ public class MyClassScan extends ClassPathBeanDefinitionScanner {
 
     @Override
     protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
+
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
+
         // 循环替换beanDefinition中的beanClass为FactoryBean,不进行替换的话,beanClass是接口,Spring无法通过接口得到Bean对象
         for (BeanDefinitionHolder definitionHolder : beanDefinitionHolders) {
+
             // 获取beanDefinition
             AbstractBeanDefinition beanDefinition = (AbstractBeanDefinition) definitionHolder.getBeanDefinition();
             // 获取扫描出的接口的beanClassName
@@ -34,6 +38,10 @@ public class MyClassScan extends ClassPathBeanDefinitionScanner {
             beanDefinition.setBeanClass(MyFactoryBean.class);
             // 添加构造方法的参数,MyFactoryBean的构造方法需要Class对象,这里设置的是string的参数,spring会使用Class.forName加载
             // 成MyFactoryBean中构造方法需要的类参数
+            if (Objects.isNull(beanClassName)) {
+                continue;
+            }
+
             beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(beanClassName);
         }
         return beanDefinitionHolders;

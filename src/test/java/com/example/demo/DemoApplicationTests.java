@@ -7,13 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
+
 @SpringBootTest
 @EnableScan("com.example.demo.mapper")
 class DemoApplicationTests {
-	@Autowired
+	@Resource
 	private AMapper aMapper;
 
-	@Autowired
+	@Resource
 	private BMapper bMapper;
 
 	@Test

@@ -1,6 +1,7 @@
 package com.example.demo.invocation;
 
 import com.example.demo.mybasemapper.MyBaseMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.util.StringUtils;
 
@@ -12,6 +13,7 @@ import java.lang.reflect.*;
  * @author lujp
  * 2022/7/22-11:44
  **/
+@Slf4j
 public class MyInvocationHandler implements InvocationHandler {
 
     public static Object build(Class<?> type) {
@@ -27,18 +29,18 @@ public class MyInvocationHandler implements InvocationHandler {
         }
 
         //获取方法参数中的泛型
-        System.out.println("方法参数类型  " + AopUtils.getTargetClass(args[0]));
+        log.info("方法参数类型  " + AopUtils.getTargetClass(args[0]));
 
         //TODO 需要能够获取到返回值泛型类型
-        System.out.println(method.getReturnType());
-        System.out.println("返回值类型   " + AopUtils.getTargetClass(method.getReturnType()));
+        log.info("method.getReturnType()返回值类型   " + method.getReturnType());
+        log.info("AopUtils.getTargetClass(method.getReturnType()返回值类型   " + AopUtils.getTargetClass(method.getReturnType()));
 
         //TODO 怎样获取代理类中的泛型
         Type[] types = method.getGenericParameterTypes();
         for (Type type : types) {
             if (type instanceof ParameterizedType) {
                 Type rawType = ((ParameterizedType) type).getRawType();
-                System.out.println(rawType);
+                log.info(rawType.getTypeName());
             }
         }
 
@@ -47,7 +49,7 @@ public class MyInvocationHandler implements InvocationHandler {
         Type test = interfaceType.getGenericInterfaces()[0];
         if (test instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) test;
-            System.out.println("MyBaseMapper的参数为：" + parameterizedType.getActualTypeArguments()[0]);
+            log.info("MyBaseMapper的参数为：" + parameterizedType.getActualTypeArguments()[0]);
         }
         return null;
     }
